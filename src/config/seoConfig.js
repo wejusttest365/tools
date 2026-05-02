@@ -38,7 +38,7 @@ export const seoConfig = {
     title: 'SVG to Image Converter - Convert SVG to PNG/JPG Online',
     description: 'Convert SVG files to PNG, JPG, or other image formats. Free SVG to image converter with high quality output.',
     keywords: 'SVG to image, SVG to PNG, SVG to JPG, SVG converter, vector to raster, image format converter',
-    canonical: 'https://wejusttest365.github.io/tools/tool/svg-to-image',
+    canonical: 'https://wejusttest365.github.io/tools/svg-to-image',
     ogImage: 'https://wejusttest365.github.io/tools/svg-og.png',
   },
 

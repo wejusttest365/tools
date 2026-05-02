@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/ImageConverter.css';
 import Accordion from './Accordion';
 
 export default function ImageConverter() {
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [outputFormat, setOutputFormat] = useState('png');
   const [quality, setQuality] = useState(92);
@@ -102,6 +104,28 @@ export default function ImageConverter() {
     { icon: '🔤', name: 'Font Converter', desc: 'Convert fonts to WOFF, WOFF2, TTF', category: 'Dev' },
     { icon: '🟦', name: 'Box Shadow', desc: 'Generate CSS box-shadow visually', category: 'CSS' },
   ];
+
+  const getToolRoute = (toolName) => {
+    const routeMap = {
+      'Compress Images': '/image-compress',
+      'Image to Text (OCR)': '/image-ocr',
+      'SVG to Image': '/svg-to-image',
+      'Image Converter': '/',
+      'Favicon Generator': '/tool/favicon',
+      'Image to Base64': '/tool/image-to-base64',
+      'Base64 to Image': '/tool/base64-to-image',
+      'Image to SVG': '/tool/image-to-svg',
+      'Merge PDF': '/tool/merge-pdf',
+      'Reorder PDF Pages': '/tool/reorder-pdf',
+      'CSS Beautifier': '/tool/css-beautifier',
+      'Gradient Generator': '/tool/gradient-generator',
+      'JSON Formatter': '/tool/json-formatter',
+      'HTML Formatter': '/tool/html-formatter',
+      'Font Converter': '/tool/font-converter',
+      'Box Shadow': '/tool/box-shadow'
+    };
+    return routeMap[toolName] || '#';
+  };
 
   const infoBoxes = [
     {
@@ -281,11 +305,11 @@ export default function ImageConverter() {
           <h2 className="section-title">🖼️ Image Tools</h2>
           <div className="shortcut-grid">
             {imageTools.map((tool, idx) => (
-              <a key={idx} href="#" className="shortcut-card">
+              <button key={idx} onClick={() => { navigate(getToolRoute(tool.name)); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
                 <div className="sc-icon">{tool.icon}</div>
                 <div className="sc-name">{tool.name}</div>
                 <div className="sc-desc">{tool.desc}</div>
-              </a>
+              </button>
             ))}
           </div>
         </section>
@@ -295,11 +319,11 @@ export default function ImageConverter() {
           <h2 className="section-title">🛠️ More Popular Tools</h2>
           <div className="shortcut-grid">
             {moreTools.map((tool, idx) => (
-              <a key={idx} href="#" className="shortcut-card">
+              <button key={idx} onClick={() => { navigate(getToolRoute(tool.name)); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
                 <div className="sc-icon">{tool.icon}</div>
                 <div className="sc-name">{tool.name}</div>
                 <div className="sc-desc">{tool.desc}</div>
-              </a>
+              </button>
             ))}
           </div>
         </section>
@@ -371,35 +395,18 @@ export default function ImageConverter() {
 
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="ad-block ad-tall">
+        {/* <div className="ad-block ad-tall">
           <div className="ad-block-label">Advertisement</div>
           <p style={{ fontSize: '0.75rem', color: '#ccc' }}>300 × 600<br/>Ad Space</p>
-        </div>
+        </div> */}
+ 
 
-        <nav className="sidebar-tools">
-          <div className="sidebar-tools-head">🖼️ Image Tools</div>
-          <ul>
-            <li><a href="#"><span>🔄</span> Image Converter</a></li>
-            <li><a href="#"><span>🗜️</span> Compress Images</a></li>
-            <li><a href="#"><span>📝</span> Image to Text (OCR)</a></li>
-            <li><a href="#"><span>⭐</span> Favicon Generator</a></li>
-            <li><a href="#"><span>🔣</span> Image to Base64</a></li>
-            <li><a href="#"><span>✏️</span> SVG to Image</a></li>
-          </ul>
-        </nav>
-
-        <div className="ad-block ad-square">
+        {/* <div className="ad-block ad-square">
           <div className="ad-block-label">Advertisement</div>
           <p style={{ fontSize: '0.75rem', color: '#ccc' }}>300 × 250<br/>Ad Space</p>
-        </div>
+        </div> */}
 
-        <nav className="sidebar-tools">
-          <div className="sidebar-tools-head">📄 PDF Tools</div>
-          <ul>
-            <li><a href="#"><span>📎</span> Merge PDF</a></li>
-            <li><a href="#"><span>🔀</span> Reorder PDF Pages</a></li>
-          </ul>
-        </nav>
+      
       </aside>
     </div>
   );

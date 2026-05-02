@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/ImageConverter.css';
 import Accordion from './Accordion';
 
 export default function ImageCompress() {
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [quality, setQuality] = useState(85);
   const [dragOver, setDragOver] = useState(false);
@@ -162,6 +164,18 @@ export default function ImageCompress() {
     { icon: '🎨', name: 'Image to SVG', desc: 'Turn photos into scalable vector graphics' },
     { icon: '🔣', name: 'Base64 Converter', desc: 'Encode or decode images as base64' },
   ];
+
+  const getToolRoute = (toolName) => {
+    const routeMap = {
+      'Compress Images': '/image-compress',
+      'Image Converter': '/',
+      'OCR Reader': '/image-ocr',
+      'SVG to Image': '/svg-to-image',
+      'Image to SVG': '/tool/image-to-svg',
+      'Base64 Converter': '/tool/base64-converter'
+    };
+    return routeMap[toolName] || '#';
+  };
 
   return (
     <div id="compress" className="page-wrap">
@@ -337,11 +351,11 @@ export default function ImageCompress() {
           <h2 className="section-title">🛠️ Related Image Tools</h2>
           <div className="shortcut-grid">
             {imageTools.map((tool, idx) => (
-              <a key={idx} href="#" className="shortcut-card">
+              <button key={idx} onClick={() => { navigate(getToolRoute(tool.name)); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
                 <div className="sc-icon">{tool.icon}</div>
                 <div className="sc-name">{tool.name}</div>
                 <div className="sc-desc">{tool.desc}</div>
-              </a>
+              </button>
             ))}
           </div>
         </section>

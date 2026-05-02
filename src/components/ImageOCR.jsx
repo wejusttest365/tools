@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createWorker } from 'tesseract.js';
 import Accordion from './Accordion';
 import '../styles/ImageConverter.css';
 
 export default function ImageOCR() {
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [ocrText, setOcrText] = useState('');
   const [processing, setProcessing] = useState(false);
@@ -404,26 +406,26 @@ export default function ImageOCR() {
         <section>
           <h2 className="section-title">🛠️ Related Image Tools</h2>
           <div className="shortcut-grid">
-            <a href="#" className="shortcut-card">
+            <button onClick={() => { navigate('/image-compress'); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
               <div className="sc-icon">🗜️</div>
               <div className="sc-name">Image Compressor</div>
               <div className="sc-desc">Reduce file sizes</div>
-            </a>
-            <a href="#" className="shortcut-card">
+            </button>
+            <button onClick={() => { navigate('/'); window.scrollTo(0, 0); }} className="shortcut-card" style={{  background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
               <div className="sc-icon">🔄</div>
               <div className="sc-name">Image Converter</div>
               <div className="sc-desc">Change formats</div>
-            </a>
-            <a href="#" className="shortcut-card">
-              <div className="sc-icon">✂️</div>
-              <div className="sc-name">Image Cropper</div>
-              <div className="sc-desc">Trim images</div>
-            </a>
-            <a href="#" className="shortcut-card">
+            </button>
+            <button onClick={() => { navigate('/svg-to-image'); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
               <div className="sc-icon">🎨</div>
-              <div className="sc-name">Image Editor</div>
-              <div className="sc-desc">Basic editing</div>
-            </a>
+              <div className="sc-name">SVG to Image</div>
+              <div className="sc-desc">Vector conversion</div>
+            </button>
+            <button onClick={() => { navigate('/tool/favicon'); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
+              <div className="sc-icon">🎯</div>
+              <div className="sc-name">Favicon Generator</div>
+              <div className="sc-desc">Create icons</div>
+            </button>
           </div>
         </section>
       </main>
