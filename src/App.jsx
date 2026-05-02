@@ -1,27 +1,25 @@
-import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import ImageConverter from './components/ImageConverter';
-import ImageCompress from './components/ImageCompress';
-import ImageOCR from './components/ImageOCR';
-import ToolPlaceholder from './components/ToolPlaceholder';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import ImageCompressPage from './pages/ImageCompressPage';
+import ImageOCRPage from './pages/ImageOCRPage';
+import ToolPage from './pages/ToolPage';
 import './styles/Global.css';
 import './App.css';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('converter');
-
-  const renderPage = () => {
-    if (currentPage === 'compress') return <ImageCompress />;
-    if (currentPage === 'ocr') return <ImageOCR />;
-    if (currentPage === 'converter') return <ImageConverter />;
-    return <ToolPlaceholder currentPage={currentPage} />;
-  };
-
   return (
     <div className="app-container">
-      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <main className="app-content">{renderPage()}</main>
+      <Header />
+      <main className="app-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/image-compress" element={<ImageCompressPage />} />
+          <Route path="/image-ocr" element={<ImageOCRPage />} />
+          <Route path="/tool/:toolId" element={<ToolPage />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );

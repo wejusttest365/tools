@@ -1,10 +1,38 @@
 import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 
-export default function Menu({ currentPage, setCurrentPage }) {
+export default function Menu() {
+  const navigate = useNavigate();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileDropdowns, setMobileDropdowns] = useState({});
+
+  // Map page IDs to routes
+  const pageToRoute = {
+    'converter': '/',
+    'compress': '/image-compress',
+    'ocr': '/image-ocr',
+    'svg-to-image': '/tool/svg-to-image',
+    'image-to-svg': '/tool/image-to-svg',
+    'favicon': '/tool/favicon',
+    'base64': '/tool/base64',
+    'image-from-base64': '/tool/image-from-base64',
+    'css-beautify': '/tool/css-beautify',
+    'box-shadow': '/tool/box-shadow',
+    'multi-box-shadow': '/tool/multi-box-shadow',
+    'clip-css': '/tool/clip-css',
+    'card-builder': '/tool/card-builder',
+    'gradient-generator': '/tool/gradient-generator',
+    'html-formatter': '/tool/html-formatter',
+    'css-errors': '/tool/css-errors',
+    'base64-codec': '/tool/base64-codec',
+    'json-formatter': '/tool/json-formatter',
+    'font-converter': '/tool/font-converter',
+    'merge-pdf': '/tool/merge-pdf',
+    'reorder-pdf': '/tool/reorder-pdf',
+    'contact': '/tool/contact',
+  };
 
   const navItems = [
     { id: 'home', label: 'Home', page: 'converter' },
@@ -67,7 +95,8 @@ export default function Menu({ currentPage, setCurrentPage }) {
   };
 
   const goToPage = (page) => {
-    setCurrentPage(page);
+    const route = pageToRoute[page] || '/';
+    navigate(route);
     setMobileNavOpen(false);
     setOpenDropdown(null);
   };
@@ -108,14 +137,13 @@ export default function Menu({ currentPage, setCurrentPage }) {
               </li>
             ) : (
               <li key={item.id} className="nav-item">
-                <button
-                  type="button"
-                  className="nav-link"
-                  onClick={() => goToPage(item.page)}
-                  aria-current={currentPage === item.page ? 'page' : undefined}
+                <NavLink
+                  to={pageToRoute[item.page]}
+                  className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                  aria-current={({ isActive }) => isActive ? 'page' : undefined}
                 >
                   {item.label}
-                </button>
+                </NavLink>
               </li>
             )
           ))}
@@ -174,9 +202,13 @@ export default function Menu({ currentPage, setCurrentPage }) {
                   </ul>
                 </>
               ) : (
-                <button type="button" className="mobile-nav-link" onClick={() => goToPage(item.page)}>
+                <NavLink
+                  to={pageToRoute[item.page]}
+                  className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+                  onClick={() => setMobileNavOpen(false)}
+                >
                   {item.label}
-                </button>
+                </NavLink>
               )}
             </li>
           ))}

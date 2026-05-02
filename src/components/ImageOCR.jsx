@@ -3,23 +3,15 @@ import { createWorker } from 'tesseract.js';
 import Accordion from './Accordion';
 import '../styles/ImageConverter.css';
 
-const languageOptions = [
-  { value: 'english', label: 'English' },
-  { value: 'spanish', label: 'Spanish' },
-  { value: 'french', label: 'French' },
-  { value: 'german', label: 'German' },
-  { value: 'chinese', label: 'Chinese' },
-];
-
 export default function ImageOCR() {
   const [files, setFiles] = useState([]);
   const [ocrText, setOcrText] = useState('');
-  const [language, setLanguage] = useState('english');
   const [processing, setProcessing] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [fullPageDrag, setFullPageDrag] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   useEffect(() => {
     const handleDocumentDragOver = (e) => {
@@ -47,10 +39,27 @@ export default function ImageOCR() {
     document.addEventListener('dragleave', handleDocumentDragLeave);
     document.addEventListener('drop', handleDocumentDrop);
 
+    const handleDocumentPaste = async (e) => {
+      const items = Array.from(e.clipboardData?.items || []);
+      const imageItem = items.find((item) => item.type.startsWith('image/'));
+
+      if (imageItem) {
+        e.preventDefault();
+        const file = imageItem.getAsFile();
+        if (file) {
+          setFiles((prev) => [...prev, file]);
+          setError('');
+        }
+      }
+    };
+
+    document.addEventListener('paste', handleDocumentPaste);
+
     return () => {
       document.removeEventListener('dragover', handleDocumentDragOver);
       document.removeEventListener('dragleave', handleDocumentDragLeave);
       document.removeEventListener('drop', handleDocumentDrop);
+      document.removeEventListener('paste', handleDocumentPaste);
     };
   }, []);
 
@@ -69,8 +78,17 @@ export default function ImageOCR() {
   };
 
   const handleFileInput = (e) => {
-    const selectedFiles = Array.from(e.target.files).filter((file) => file.type.startsWith('image/'));
-    setFiles((prev) => [...prev, ...selectedFiles]);
+    const selectedFiles = Array.from(e.target.files || []).filter((file) => file.type.startsWith('image/'));
+    if (selectedFiles.length > 0) {
+      setFiles((prev) => [...prev, ...selectedFiles]);
+      setError('');
+    }
+    e.target.value = '';
+  };
+
+  const getWorker = async () => {
+    const worker = await createWorker('eng');
+    return worker;
   };
 
   // Compress/optimize image before OCR to speed up processing
@@ -127,43 +145,52 @@ export default function ImageOCR() {
   };
 
   const handleProcess = async () => {
-    if (!files.length) return;
+    if (!files.length) {
+      setError('Please upload, paste, or drop an image with text to start OCR.');
+      return;
+    }
+
     setProcessing(true);
     setError('');
     setOcrText('');
     setProgress(0);
 
     try {
-      const worker = await createWorker(language);
+      const worker = await getWorker();
       let allText = '';
       const totalFiles = files.length;
 
       for (let i = 0; i < totalFiles; i++) {
         const file = files[i];
         try {
-          // Show progress
-          setProgress(Math.round(((i + 0.3) / totalFiles) * 100));
+          setProgress(Math.round(((i + 0.1) / totalFiles) * 100));
 
-          // Preprocess image for better OCR
           const optimizedBlob = await preprocessImage(file);
+          setProgress(Math.round(((i + 0.5) / totalFiles) * 100));
 
-          // Recognize text
-          setProgress(Math.round(((i + 0.7) / totalFiles) * 100));
           const { data: { text } } = await worker.recognize(optimizedBlob);
+          const trimmed = text.trim();
 
-          allText += `--- ${file.name} ---\n${text}\n\n`;
+          if (trimmed) {
+            allText += `--- ${file.name} ---\n${trimmed}\n\n`;
+          } else {
+            allText += `--- ${file.name} ---\n[NO TEXT FOUND]\n\n`;
+          }
+
           setProgress(Math.round(((i + 1) / totalFiles) * 100));
         } catch (fileError) {
           const errorMsg = `Error processing ${file.name}: ${fileError.message}`;
           console.error(errorMsg);
           allText += `--- ${file.name} ---\n[ERROR: ${fileError.message}]\n\n`;
-          setError(prev => prev + (prev ? '\n' : '') + errorMsg);
+          setError((prev) => prev ? `${prev}\n${errorMsg}` : errorMsg);
         }
       }
 
       await worker.terminate();
       setOcrText(allText);
-      setProgress(100);
+      if (!allText.trim() || allText.includes('[NO TEXT FOUND]')) {
+        setError('No readable text found. Please upload a clearer image or try another file.');
+      }
       setProcessing(false);
     } catch (err) {
       const errorMsg = `OCR Error: ${err.message}`;
@@ -178,12 +205,24 @@ export default function ImageOCR() {
     setFiles([]);
     setOcrText('');
     setError('');
+    setSuccess('');
     setProgress(0);
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(ocrText);
-    alert('Text copied to clipboard!');
+  const copyToClipboard = async () => {
+    if (!ocrText.trim()) {
+      setError('No OCR text available to copy. Please run extraction first.');
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(ocrText);
+      setSuccess('Text copied to clipboard successfully.');
+      setTimeout(() => setSuccess(''), 3000); // Clear after 3 seconds
+    } catch (clipboardError) {
+      setError('Could not copy text to clipboard. Please try again.');
+      console.error(clipboardError);
+    }
   };
 
   const removeFile = (index) => {
@@ -210,7 +249,6 @@ export default function ImageOCR() {
             <p>Extract editable text from screenshots, scans, receipts, invoices, and photos instantly.</p>
             <div className="tool-badges">
               <span className="badge">✓ Image OCR</span>
-              <span className="badge">✓ Multi-Language</span>
               <span className="badge">✓ No Signup</span>
               <span className="badge">✓ Fast Preview</span>
               <span className="badge">✓ Privacy First</span>
@@ -218,15 +256,6 @@ export default function ImageOCR() {
           </div>
 
           <div className="tool-body">
-            <div className="format-group">
-              <label>OCR Language</label>
-              <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-                {languageOptions.map((option) => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))}
-              </select>
-            </div>
-
             <div
               className={`drop-zone ${dragOver ? 'dragover' : ''}`}
               onDragOver={handleDragOver}
@@ -241,8 +270,8 @@ export default function ImageOCR() {
                 style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }}
               />
               <div className="drop-icon">📷</div>
-              <h2>Upload images to extract text</h2>
-              <p>Supports JPG, PNG, WEBP, GIF, BMP, TIFF, ICO • Multiple files supported</p>
+              <h2>Paste or upload images to extract text</h2>
+              <p>Supports JPG, PNG, WEBP, GIF, BMP, TIFF, ICO • Multiple images supported • Press Ctrl+V / Cmd+V to paste</p>
             </div>
 
             {files.length > 0 && (
@@ -314,6 +343,20 @@ export default function ImageOCR() {
               <div className="download-section">
                 <h3>📄 OCR Result</h3>
                 <textarea className="ocr-result" value={ocrText} readOnly rows={10} />
+                {success && (
+                  <div style={{
+                    background: '#d1fae5',
+                    border: '1px solid #10b981',
+                    color: '#065f46',
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    marginBottom: '8px',
+                    fontSize: '0.85rem',
+                    fontWeight: '500'
+                  }}>
+                    ✅ {success}
+                  </div>
+                )}
                 <button className="btn-download-all" onClick={copyToClipboard}>Copy Result</button>
               </div>
             )}
@@ -334,7 +377,6 @@ export default function ImageOCR() {
 
           <Accordion title="How to use Image OCR" defaultOpen={false}>
             <ol>
-              <li>Select your preferred language for text recognition</li>
               <li>Upload images containing text (screenshots, scans, photos)</li>
               <li>Click "Extract Text" to start the OCR process</li>
               <li>Wait for processing to complete (may take a few seconds per image)</li>
@@ -344,10 +386,6 @@ export default function ImageOCR() {
           </Accordion>
 
           <Accordion title="FAQ" defaultOpen={false}>
-            <div className="faq-item">
-              <h4>What languages are supported?</h4>
-              <p>English, Spanish, French, German, and Chinese are currently supported. More languages will be added soon.</p>
-            </div>
             <div className="faq-item">
               <h4>How accurate is the OCR?</h4>
               <p>Accuracy depends on image quality, but typically ranges from 90-95% for clear text. Results improve with better image quality.</p>

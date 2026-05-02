@@ -1,0 +1,30 @@
+# robots.txt for SEO optimization
+# Remove '#' from 'Disallow' or 'Allow' lines to activate them
+
+User-agent: *
+Allow: /tools/
+
+# Disallow private/admin areas (adjust as needed)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow crawling of all content
+Allow: /tools/
+
+# Sitemap location
+Sitemap: https://wejusttest365.github.io/tools/sitemap.xml
+
+# Crawl delay (optional - adjust based on server load)
+Crawl-delay: 2
+
+# Request rate (optional)
+Request-rate: 1/2s
+
+# User agents
+User-agent: Googlebot
+Allow: /tools/
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /tools/
+Crawl-delay: 1
