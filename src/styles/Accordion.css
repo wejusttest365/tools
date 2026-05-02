@@ -1,0 +1,91 @@
+/* ======================== ACCORDION ======================== */
+.accordion-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+  transition: background-color 0.15s ease;
+}
+
+.accordion-header:hover {
+  background-color: #f9fafb;
+}
+
+.accordion-header.open {
+  background-color: #f0f9ff;
+  color: #0057ff;
+}
+
+.accordion-title {
+  font-weight: 700;
+}
+
+.accordion-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.accordion-header.open .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion-content.open {
+  max-height: 1000px;
+}
+
+.accordion-body {
+  padding: 0 20px 20px;
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 0.85rem;
+}
+
+.accordion-body h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 16px 0 8px 0;
+}
+
+.accordion-body ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.accordion-body li {
+  margin-bottom: 4px;
+}
+
+.accordion-body strong {
+  color: #111827;
+  font-weight: 600;
+}
