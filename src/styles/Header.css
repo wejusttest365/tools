@@ -171,6 +171,11 @@ header.header {
 
 .dropdown li {
   list-style: none;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.dropdown li:last-child {
+  border-bottom: none;
 }
 
 .dropdown-item {
@@ -180,14 +185,19 @@ header.header {
   width: 100%;
   padding: 8px 14px;
   border-radius: 0;
-  font-size: 0.82rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--text);
   transition: background .13s ease, color .13s ease;
   text-align: left;
   background: transparent;
   border: none;
   cursor: pointer;
+  border-bottom: 1px solid var(--border);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
 }
 
 .dropdown-item:hover {

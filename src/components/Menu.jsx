@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 
@@ -7,6 +7,19 @@ export default function Menu() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileDropdowns, setMobileDropdowns] = useState({});
+  const navRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   // Map page IDs to routes
   const pageToRoute = {
@@ -103,7 +116,7 @@ export default function Menu() {
 
   return (
     <>
-      <nav aria-label="Main navigation" className="desktop-nav">
+      <nav aria-label="Main navigation" className="desktop-nav" ref={navRef}>
         <ul className="nav-list" role="list">
           {navItems.map((item) => (
             item.submenu ? (

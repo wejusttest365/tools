@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ImageConverter.css';
 import Accordion from './Accordion';
+import RelatedImageTools from './RelatedImageTools';
 
 export default function ImageCompress() {
   const navigate = useNavigate();
@@ -305,60 +306,55 @@ export default function ImageCompress() {
         </article>
 
         <section className="tool-info">
-          <Accordion title="Why use Image Compressor?" defaultOpen={false}>
-            <p>Reduce file sizes without compromising quality. Perfect for:</p>
-            <ul>
-              <li>Website optimization to improve loading speeds</li>
-              <li>Saving storage space on devices and cloud services</li>
-              <li>Email attachments with size restrictions</li>
-              <li>Social media uploads with file size limits</li>
-              <li>Preserving image quality while reducing bandwidth usage</li>
-            </ul>
-          </Accordion>
+          <Accordion title="Why use Image Compressor?" isOpen={false} content={
+            <div>
+              <p>Reduce file sizes without compromising quality. Perfect for:</p>
+              <ul>
+                <li>Website optimization to improve loading speeds</li>
+                <li>Saving storage space on devices and cloud services</li>
+                <li>Email attachments with size restrictions</li>
+                <li>Social media uploads with file size limits</li>
+                <li>Preserving image quality while reducing bandwidth usage</li>
+              </ul>
+            </div>
+          } />
 
-          <Accordion title="How to use Image Compressor" defaultOpen={false}>
-            <ol>
-              <li>Drag and drop images or click to select files</li>
-              <li>Choose your desired compression quality (1-100%)</li>
-              <li>Click "Compress Images" to process your files</li>
-              <li>Review the compression results showing original vs compressed sizes</li>
-              <li>Download individual files or use "Download All" for batch download</li>
-            </ol>
-            <p><strong>Tip:</strong> Higher quality settings preserve more detail but result in larger files. Lower quality reduces file size more but may lose some image detail.</p>
-          </Accordion>
+          <Accordion title="How to use Image Compressor" isOpen={false} content={
+            <div>
+              <ol>
+                <li>Drag and drop images or click to select files</li>
+                <li>Choose your desired compression quality (1-100%)</li>
+                <li>Click "Compress Images" to process your files</li>
+                <li>Review the compression results showing original vs compressed sizes</li>
+                <li>Download individual files or use "Download All" for batch download</li>
+              </ol>
+              <p><strong>Tip:</strong> Higher quality settings preserve more detail but result in larger files. Lower quality reduces file size more but may lose some image detail.</p>
+            </div>
+          } />
 
-          <Accordion title="FAQ" defaultOpen={false}>
-            <div className="faq-item">
-              <h4>What image formats are supported?</h4>
-              <p>JPEG, PNG, and WebP formats are supported for compression.</p>
+          <Accordion title="FAQ" isOpen={false} content={
+            <div>
+              <div className="faq-item">
+                <h4>What image formats are supported?</h4>
+                <p>JPEG, PNG, and WebP formats are supported for compression.</p>
+              </div>
+              <div className="faq-item">
+                <h4>Will image quality be affected?</h4>
+                <p>Yes, compression reduces file size by removing some image data. You can control the quality level to balance size reduction with image quality.</p>
+              </div>
+              <div className="faq-item">
+                <h4>Is compression reversible?</h4>
+                <p>No, compression is lossy for JPEG images. Always keep your original files as backups.</p>
+              </div>
+              <div className="faq-item">
+                <h4>What's the maximum file size I can compress?</h4>
+                <p>Files up to 50MB can be processed. For very large files, consider using lower quality settings.</p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h4>Will image quality be affected?</h4>
-              <p>Yes, compression reduces file size by removing some image data. You can control the quality level to balance size reduction with image quality.</p>
-            </div>
-            <div className="faq-item">
-              <h4>Is compression reversible?</h4>
-              <p>No, compression is lossy for JPEG images. Always keep your original files as backups.</p>
-            </div>
-            <div className="faq-item">
-              <h4>What's the maximum file size I can compress?</h4>
-              <p>Files up to 50MB can be processed. For very large files, consider using lower quality settings.</p>
-            </div>
-          </Accordion>
+          } />
         </section>
 
-        <section>
-          <h2 className="section-title">🛠️ Related Image Tools</h2>
-          <div className="shortcut-grid">
-            {imageTools.map((tool, idx) => (
-              <button key={idx} onClick={() => { navigate(getToolRoute(tool.name)); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-                <div className="sc-icon">{tool.icon}</div>
-                <div className="sc-name">{tool.name}</div>
-                <div className="sc-desc">{tool.desc}</div>
-              </button>
-            ))}
-          </div>
-        </section>
+        <RelatedImageTools />
       </main>
     </div>
   );

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createWorker } from 'tesseract.js';
 import Accordion from './Accordion';
+import RelatedImageTools from './RelatedImageTools';
 import '../styles/ImageConverter.css';
 
 export default function ImageOCR() {
@@ -366,68 +367,50 @@ export default function ImageOCR() {
         </article>
 
         <section className="tool-info">
-          <Accordion title="Why use Image OCR?" defaultOpen={false}>
-            <p>Convert images to editable text instantly. Perfect for:</p>
-            <ul>
-              <li>Extracting text from scanned documents and receipts</li>
-              <li>Converting screenshots to searchable text</li>
-              <li>Reading text from photos and images</li>
-              <li>Creating accessible content from visual materials</li>
-              <li>Automating data entry from printed forms</li>
-            </ul>
-          </Accordion>
+          <Accordion title="Why use Image OCR?" isOpen={false} content={
+            <div>
+              <p>Convert images to editable text instantly. Perfect for:</p>
+              <ul>
+                <li>Extracting text from scanned documents and receipts</li>
+                <li>Converting screenshots to searchable text</li>
+                <li>Reading text from photos and images</li>
+                <li>Creating accessible content from visual materials</li>
+                <li>Automating data entry from printed forms</li>
+              </ul>
+            </div>
+          } />
 
-          <Accordion title="How to use Image OCR" defaultOpen={false}>
-            <ol>
-              <li>Upload images containing text (screenshots, scans, photos)</li>
-              <li>Click "Extract Text" to start the OCR process</li>
-              <li>Wait for processing to complete (may take a few seconds per image)</li>
-              <li>Copy the extracted text or use it in your documents</li>
-            </ol>
-            <p><strong>Tip:</strong> For best results, use clear, high-contrast images with good lighting. Avoid blurry or distorted text.</p>
-          </Accordion>
+          <Accordion title="How to use Image OCR" isOpen={false} content={
+            <div>
+              <ol>
+                <li>Upload images containing text (screenshots, scans, photos)</li>
+                <li>Click "Extract Text" to start the OCR process</li>
+                <li>Wait for processing to complete (may take a few seconds per image)</li>
+                <li>Copy the extracted text or use it in your documents</li>
+              </ol>
+              <p><strong>Tip:</strong> For best results, use clear, high-contrast images with good lighting. Avoid blurry or distorted text.</p>
+            </div>
+          } />
 
-          <Accordion title="FAQ" defaultOpen={false}>
-            <div className="faq-item">
-              <h4>How accurate is the OCR?</h4>
-              <p>Accuracy depends on image quality, but typically ranges from 90-95% for clear text. Results improve with better image quality.</p>
+          <Accordion title="FAQ" isOpen={false} content={
+            <div>
+              <div className="faq-item">
+                <h4>How accurate is the OCR?</h4>
+                <p>Accuracy depends on image quality, but typically ranges from 90-95% for clear text. Results improve with better image quality.</p>
+              </div>
+              <div className="faq-item">
+                <h4>Can I process multiple images at once?</h4>
+                <p>Yes, you can upload multiple images and they'll be processed sequentially. Results are combined in a single text output.</p>
+              </div>
+              <div className="faq-item">
+                <h4>Is my data secure?</h4>
+                <p>All processing happens locally in your browser. Images and extracted text never leave your device.</p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h4>Can I process multiple images at once?</h4>
-              <p>Yes, you can upload multiple images and they'll be processed sequentially. Results are combined in a single text output.</p>
-            </div>
-            <div className="faq-item">
-              <h4>Is my data secure?</h4>
-              <p>All processing happens locally in your browser. Images and extracted text never leave your device.</p>
-            </div>
-          </Accordion>
+          } />
         </section>
 
-        <section>
-          <h2 className="section-title">🛠️ Related Image Tools</h2>
-          <div className="shortcut-grid">
-            <button onClick={() => { navigate('/image-compress'); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-              <div className="sc-icon">🗜️</div>
-              <div className="sc-name">Image Compressor</div>
-              <div className="sc-desc">Reduce file sizes</div>
-            </button>
-            <button onClick={() => { navigate('/'); window.scrollTo(0, 0); }} className="shortcut-card" style={{  background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-              <div className="sc-icon">🔄</div>
-              <div className="sc-name">Image Converter</div>
-              <div className="sc-desc">Change formats</div>
-            </button>
-            <button onClick={() => { navigate('/svg-to-image'); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-              <div className="sc-icon">🎨</div>
-              <div className="sc-name">SVG to Image</div>
-              <div className="sc-desc">Vector conversion</div>
-            </button>
-            <button onClick={() => { navigate('/tool/favicon'); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-              <div className="sc-icon">🎯</div>
-              <div className="sc-name">Favicon Generator</div>
-              <div className="sc-desc">Create icons</div>
-            </button>
-          </div>
-        </section>
+        <RelatedImageTools />
       </main>
     </div>
   );

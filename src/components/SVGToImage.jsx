@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Accordion from './Accordion';
+import RelatedImageTools from './RelatedImageTools';
 import '../styles/ImageConverter.css';
 
 export default function SVGToImage() {
@@ -250,72 +251,54 @@ export default function SVGToImage() {
         </article>
 
         <section className="tool-info">
-          <Accordion title="Why convert SVG to Image?" defaultOpen={false}>
-            <p>SVG to Image conversion is useful for:</p>
-            <ul>
-              <li>Creating raster versions of vector graphics for web use</li>
-              <li>Exporting designs for social media and presentations</li>
-              <li>Sharing graphics with non-vector compatible tools</li>
-              <li>Reducing file complexity for simpler applications</li>
-              <li>Ensuring compatibility with all platforms and devices</li>
-            </ul>
-          </Accordion>
+          <Accordion title="Why convert SVG to Image?" isOpen={false} content={
+            <div>
+              <p>SVG to Image conversion is useful for:</p>
+              <ul>
+                <li>Creating raster versions of vector graphics for web use</li>
+                <li>Exporting designs for social media and presentations</li>
+                <li>Sharing graphics with non-vector compatible tools</li>
+                <li>Reducing file complexity for simpler applications</li>
+                <li>Ensuring compatibility with all platforms and devices</li>
+              </ul>
+            </div>
+          } />
 
-          <Accordion title="How to use SVG to Image" defaultOpen={false}>
-            <ol>
-              <li>Upload your SVG file by dragging, dropping, or clicking to browse</li>
-              <li>Preview your SVG to ensure it looks correct</li>
-              <li>Choose PNG (preserves transparency) or JPG (better compression) format</li>
-              <li>Click the download button to save your converted image</li>
-            </ol>
-            <p><strong>Tip:</strong> PNG format preserves transparency and is ideal for logos and icons. JPG provides better compression for photographs and complex graphics.</p>
-          </Accordion>
+          <Accordion title="How to use SVG to Image" isOpen={false} content={
+            <div>
+              <ol>
+                <li>Upload your SVG file by dragging, dropping, or clicking to browse</li>
+                <li>Preview your SVG to ensure it looks correct</li>
+                <li>Choose PNG (preserves transparency) or JPG (better compression) format</li>
+                <li>Click the download button to save your converted image</li>
+              </ol>
+              <p><strong>Tip:</strong> PNG format preserves transparency and is ideal for logos and icons. JPG provides better compression for photographs and complex graphics.</p>
+            </div>
+          } />
 
-          <Accordion title="FAQ" defaultOpen={false}>
-            <div className="faq-item">
-              <h4>What file sizes are supported?</h4>
-              <p>We support SVG files up to 50MB in size. Larger files may take longer to process.</p>
+          <Accordion title="FAQ" isOpen={false} content={
+            <div>
+              <div className="faq-item">
+                <h4>What file sizes are supported?</h4>
+                <p>We support SVG files up to 50MB in size. Larger files may take longer to process.</p>
+              </div>
+              <div className="faq-item">
+                <h4>Is my data secure?</h4>
+                <p>All conversion happens locally in your browser. SVG files and converted images never leave your device.</p>
+              </div>
+              <div className="faq-item">
+                <h4>Can I batch convert multiple files?</h4>
+                <p>Currently, you can convert one SVG at a time. Convert multiple files by repeating the process.</p>
+              </div>
+              <div className="faq-item">
+                <h4>What's the difference between PNG and JPG?</h4>
+                <p>PNG preserves transparency and is lossless, making it ideal for logos and graphics with transparent backgrounds. JPG uses lossy compression, resulting in smaller file sizes but no transparency support.</p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h4>Is my data secure?</h4>
-              <p>All conversion happens locally in your browser. SVG files and converted images never leave your device.</p>
-            </div>
-            <div className="faq-item">
-              <h4>Can I batch convert multiple files?</h4>
-              <p>Currently, you can convert one SVG at a time. Convert multiple files by repeating the process.</p>
-            </div>
-            <div className="faq-item">
-              <h4>What's the difference between PNG and JPG?</h4>
-              <p>PNG preserves transparency and is lossless, making it ideal for logos and graphics with transparent backgrounds. JPG uses lossy compression, resulting in smaller file sizes but no transparency support.</p>
-            </div>
-          </Accordion>
+          } />
         </section>
 
-        <section>
-          <h2 className="section-title">🛠️ Related Image Tools</h2>
-          <div className="shortcut-grid">
-            <button onClick={() => { navigate(getToolRoute(tool.name)); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-              <div className="sc-icon">🗜️</div>
-              <div className="sc-name">Image Compressor</div>
-              <div className="sc-desc">Reduce file sizes</div>
-            </button>
-            <button onClick={() => { navigate(getToolRoute('Image Converter')); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-              <div className="sc-icon">🔄</div>
-              <div className="sc-name">Image Converter</div>
-              <div className="sc-desc">Change formats</div>
-            </button>
-            <button onClick={() => { navigate(getToolRoute('Image OCR')); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-              <div className="sc-icon">📝</div>
-              <div className="sc-name">Image OCR</div>
-              <div className="sc-desc">Extract text</div>
-            </button>
-            <button onClick={() => { navigate(getToolRoute('Favicon Generator')); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-              <div className="sc-icon">🎯</div>
-              <div className="sc-name">Favicon Generator</div>
-              <div className="sc-desc">Create icons</div>
-            </button>
-          </div>
-        </section>
+        <RelatedImageTools />
       </main>
     </div>
   );

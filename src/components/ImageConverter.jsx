@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ImageConverter.css';
 import Accordion from './Accordion';
+import RelatedImageTools from './RelatedImageTools';
 
 export default function ImageConverter() {
   const navigate = useNavigate();
@@ -94,17 +95,6 @@ export default function ImageConverter() {
     { icon: '🖼️', name: 'Base64 to Image', desc: 'Decode base64 strings back to images' },
   ];
 
-  const moreTools = [
-    { icon: '📎', name: 'Merge PDF', desc: 'Combine multiple PDFs into one file', category: 'PDF' },
-    { icon: '🔀', name: 'Reorder PDF Pages', desc: 'Drag and rearrange pages in any PDF', category: 'PDF' },
-    { icon: '✨', name: 'CSS Beautifier', desc: 'Format and minify CSS code online', category: 'CSS' },
-    { icon: '🌈', name: 'Gradient Generator', desc: 'Create beautiful CSS gradients visually', category: 'CSS' },
-    { icon: '📋', name: 'JSON Formatter', desc: 'Beautify and validate JSON instantly', category: 'Dev' },
-    { icon: '🌐', name: 'HTML Formatter', desc: 'Clean and indent messy HTML code', category: 'Dev' },
-    { icon: '🔤', name: 'Font Converter', desc: 'Convert fonts to WOFF, WOFF2, TTF', category: 'Dev' },
-    { icon: '🟦', name: 'Box Shadow', desc: 'Generate CSS box-shadow visually', category: 'CSS' },
-  ];
-
   const getToolRoute = (toolName) => {
     const routeMap = {
       'Compress Images': '/image-compress',
@@ -114,15 +104,7 @@ export default function ImageConverter() {
       'Favicon Generator': '/tool/favicon',
       'Image to Base64': '/tool/image-to-base64',
       'Base64 to Image': '/tool/base64-to-image',
-      'Image to SVG': '/tool/image-to-svg',
-      'Merge PDF': '/tool/merge-pdf',
-      'Reorder PDF Pages': '/tool/reorder-pdf',
-      'CSS Beautifier': '/tool/css-beautifier',
-      'Gradient Generator': '/tool/gradient-generator',
-      'JSON Formatter': '/tool/json-formatter',
-      'HTML Formatter': '/tool/html-formatter',
-      'Font Converter': '/tool/font-converter',
-      'Box Shadow': '/tool/box-shadow'
+      'Image to SVG': '/tool/image-to-svg'
     };
     return routeMap[toolName] || '#';
   };
@@ -315,25 +297,14 @@ export default function ImageConverter() {
         </section>
 
         {/* More Popular Tools Section */}
-        <section>
-          <h2 className="section-title">🛠️ More Popular Tools</h2>
-          <div className="shortcut-grid">
-            {moreTools.map((tool, idx) => (
-              <button key={idx} onClick={() => { navigate(getToolRoute(tool.name)); window.scrollTo(0, 0); }} className="shortcut-card" style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', padding: 10, borderRadius: 6, textAlign: 'left' }}>
-                <div className="sc-icon">{tool.icon}</div>
-                <div className="sc-name">{tool.name}</div>
-                <div className="sc-desc">{tool.desc}</div>
-              </button>
-            ))}
-          </div>
-        </section>
+        <RelatedImageTools />
 
         {/* Info Boxes */}
-        <section>
+        {/* <section>
           {infoBoxes.map((box, idx) => (
             <InfoBox key={idx} title={box.title} content={box.content} />
           ))}
-        </section>
+        </section> */}
 
         {/* Accordions */}
         <section className="accordions-section">
@@ -395,18 +366,6 @@ export default function ImageConverter() {
 
       {/* Sidebar */}
       <aside className="sidebar">
-        {/* <div className="ad-block ad-tall">
-          <div className="ad-block-label">Advertisement</div>
-          <p style={{ fontSize: '0.75rem', color: '#ccc' }}>300 × 600<br/>Ad Space</p>
-        </div> */}
- 
-
-        {/* <div className="ad-block ad-square">
-          <div className="ad-block-label">Advertisement</div>
-          <p style={{ fontSize: '0.75rem', color: '#ccc' }}>300 × 250<br/>Ad Space</p>
-        </div> */}
-
-      
       </aside>
     </div>
   );
