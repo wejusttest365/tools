@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../styles/Footer.css';
 
 export default function Footer() {
@@ -22,12 +23,12 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Image Tools</h4>
             <ul>
-              <li><a href="#image-converter">Image Converter</a></li>
-              <li><a href="#compress">Compress Images</a></li>
-              <li><a href="#ocr">Image to Text OCR</a></li>
-              <li><a href="#favicon">Favicon Generator</a></li>
-              <li><a href="#base64">Image to Base64</a></li>
-              <li><a href="#svg">SVG to Image</a></li>
+              <li><Link to="/">Image Converter</Link></li>
+              <li><Link to="/image-compress">Compress Images</Link></li>
+              <li><Link to="/image-ocr">Image to Text OCR</Link></li>
+              <li><Link to="/tool/favicon">Favicon Generator</Link></li>
+              <li><Link to="/tool/image-to-base64">Image to Base64</Link></li>
+              <li><Link to="/svg-to-image">SVG to Image</Link></li>
             </ul>
           </div>
 
@@ -35,12 +36,12 @@ export default function Footer() {
           <div className="footer-col">
             <h4>CSS & Dev Tools</h4>
             <ul>
-              <li><a href="#css">CSS Formatter</a></li>
-              <li><a href="#gradient">Gradient Generator</a></li>
-              <li><a href="#shadow">Box Shadow Generator</a></li>
-              <li><a href="#json">JSON Formatter</a></li>
-              <li><a href="#html">HTML Formatter</a></li>
-              <li><a href="#font">Font Converter</a></li>
+              <li><Link to="/tool/css-beautify">CSS Formatter</Link></li>
+              <li><Link to="/tool/gradient-generator">Gradient Generator</Link></li>
+              <li><Link to="/tool/box-shadow">Box Shadow Generator</Link></li>
+              <li><Link to="/tool/json-formatter">JSON Formatter</Link></li>
+              <li><Link to="/tool/html-formatter">HTML Formatter</Link></li>
+              <li><Link to="/tool/font-converter">Font Converter</Link></li>
             </ul>
           </div>
 
@@ -48,11 +49,13 @@ export default function Footer() {
           <div className="footer-col">
             <h4>PDF Tools & Info</h4>
             <ul>
-              <li><a href="#merge">Merge PDF</a></li>
-              <li><a href="#reorder">Reorder PDF Pages</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#contact">Contact Us</a></li>
-              <li><a href="#privacy">Privacy Policy</a></li>
+              <li><Link to="/tool/merge-pdf">Merge PDF</Link></li>
+              <li><Link to="/tool/compress-pdf">Compress PDF</Link></li>
+              <li><Link to="/tool/split-pdf">Split PDF</Link></li>
+              <li><Link to="/tool/reorder-pdf">Reorder PDF Pages</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/contact">Contact Us</Link></li>
+              <li><Link to="/privacy">Privacy Policy</Link></li>
               <li><a href="#terms">Terms & Conditions</a></li>
             </ul>
           </div>
@@ -62,9 +65,9 @@ export default function Footer() {
         <div className="footer-bottom">
           <p>© Copyright 2026 Web Tool Ocean | Made With ❤️</p>
           <nav aria-label="Legal navigation">
-            <a href="#about">About</a>
+            <Link to="/about">About</Link>
             <a href="#disclaimer">Disclaimer</a>
-            <a href="#privacy">Privacy</a>
+            <Link to="/privacy">Privacy</Link>
             <a href="#terms">Terms</a>
           </nav>
         </div>

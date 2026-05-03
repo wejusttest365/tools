@@ -26,10 +26,10 @@ export default function Menu() {
     'converter': '/',
     'compress': '/image-compress',
     'ocr': '/image-ocr',
-    'svg-to-image': '/tool/svg-to-image',
+    'svg-to-image': '/svg-to-image',
     'image-to-svg': '/tool/image-to-svg',
     'favicon': '/tool/favicon',
-    'base64': '/tool/base64',
+    'base64': '/tool/image-to-base64',
     'image-from-base64': '/tool/image-from-base64',
     'css-beautify': '/tool/css-beautify',
     'box-shadow': '/tool/box-shadow',
@@ -43,8 +43,12 @@ export default function Menu() {
     'json-formatter': '/tool/json-formatter',
     'font-converter': '/tool/font-converter',
     'merge-pdf': '/tool/merge-pdf',
+    'compress-pdf': '/tool/compress-pdf',
+    'split-pdf': '/tool/split-pdf',
     'reorder-pdf': '/tool/reorder-pdf',
-    'contact': '/tool/contact',
+    'contact': '/contact',
+    'about': '/about',
+    'privacy': '/privacy',
   };
 
   const navItems = [
@@ -91,6 +95,8 @@ export default function Menu() {
       label: 'PDF Tools',
       submenu: [
         { label: 'Merge PDF', page: 'merge-pdf' },
+        { label: 'Compress PDF', page: 'compress-pdf' },
+        { label: 'Split PDF', page: 'split-pdf' },
         { label: 'Reorder PDF Pages', page: 'reorder-pdf' },
       ],
     },

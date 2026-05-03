@@ -6,6 +6,9 @@ import ImageCompressPage from './pages/ImageCompressPage';
 import ImageOCRPage from './pages/ImageOCRPage';
 import SVGToImagePage from './pages/SVGToImagePage';
 import ToolPage from './pages/ToolPage';
+import AboutPage from './pages/AboutPage';
+import PrivacyPage from './pages/PrivacyPage';
+import ContactPage from './pages/ContactPage';
 import './styles/Global.css';
 import './App.css';
 
@@ -20,6 +23,9 @@ function App() {
           <Route path="/image-ocr" element={<ImageOCRPage />} />
           <Route path="/svg-to-image" element={<SVGToImagePage />} />
           <Route path="/tool/:toolId" element={<ToolPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
       <Footer />

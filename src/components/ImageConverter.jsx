@@ -101,10 +101,10 @@ export default function ImageConverter() {
       'Image to Text (OCR)': '/image-ocr',
       'SVG to Image': '/svg-to-image',
       'Image Converter': '/',
-      'Favicon Generator': '/tool/favicon',
-      'Image to Base64': '/tool/image-to-base64',
-      'Base64 to Image': '/tool/base64-to-image',
-      'Image to SVG': '/tool/image-to-svg'
+      'Favicon Generator': '/favicon',
+      'Image to Base64': '/image-to-base64',
+      'Base64 to Image': '/base64-to-image',
+      'Image to SVG': '/image-to-svg'
     };
     return routeMap[toolName] || '#';
   };
@@ -283,7 +283,7 @@ export default function ImageConverter() {
         </article>
 
         {/* Image Tools Section */}
-        <section>
+        {/* <section>
           <h2 className="section-title">🖼️ Image Tools</h2>
           <div className="shortcut-grid">
             {imageTools.map((tool, idx) => (
@@ -294,7 +294,7 @@ export default function ImageConverter() {
               </button>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* More Popular Tools Section */}
         <RelatedImageTools />

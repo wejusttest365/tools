@@ -95,7 +95,7 @@ header.header {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 8px 12px;
+  padding: 0px 12px;
   border-radius: 10px;
   font-size: 0.9rem;
   font-weight: 600;

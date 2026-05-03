@@ -57,7 +57,7 @@ main {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 20px;
+  padding:0 0px;
 }
 
 /* ======================== TOAST ======================== */

@@ -170,6 +170,22 @@ export const seoConfig = {
     ogImage: 'https://wejusttest365.github.io/tools/merge-og.png',
   },
 
+  compressPdf: {
+    title: 'Compress PDF Online - Reduce PDF File Size Free',
+    description: 'Compress PDF documents in your browser. Reduce file size, preserve layout, and download optimized PDFs quickly and securely.',
+    keywords: 'compress PDF, PDF compressor, reduce PDF size, optimize PDF, shrink PDF, free PDF compression',
+    canonical: 'https://wejusttest365.github.io/tools/tool/compress-pdf',
+    ogImage: 'https://wejusttest365.github.io/tools/compress-pdf-og.png',
+  },
+
+  splitPdf: {
+    title: 'Split PDF Online - Split PDF Files by Page or Range',
+    description: 'Split PDF documents into separate files by single pages, page ranges, or fixed page groups. Fast and secure browser-based PDF splitting.',
+    keywords: 'split PDF, PDF splitter, split PDF pages, extract pages from PDF, page range split, PDF tool',
+    canonical: 'https://wejusttest365.github.io/tools/tool/split-pdf',
+    ogImage: 'https://wejusttest365.github.io/tools/split-og.png',
+  },
+
   reorderPdf: {
     title: 'Reorder PDF Pages - Rearrange PDF Pages Online',
     description: 'Rearrange and reorder pages in a PDF file. Organize your PDF documents easily.',
@@ -213,6 +229,8 @@ export function getSEOConfig(toolId) {
     'json-formatter': 'jsonFormatter',
     'font-converter': 'fontConverter',
     'merge-pdf': 'mergePdf',
+    'compress-pdf': 'compressPdf',
+    'split-pdf': 'splitPdf',
     'reorder-pdf': 'reorderPdf',
     'contact': 'contact',
   };

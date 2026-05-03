@@ -146,7 +146,7 @@ export default function SVGToImage() {
       'Image Compressor': '/image-compress',
       'Image Converter': '/',
       'Image OCR': '/image-ocr',
-      'Favicon Generator': '/tool/favicon'
+      'Favicon Generator': '/favicon'
     };
     return routeMap[toolName] || '#';
   };

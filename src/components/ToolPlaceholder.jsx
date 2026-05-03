@@ -21,6 +21,8 @@ const toolTitles = {
   'json-formatter': 'JSON Formatter',
   'font-converter': 'Font Converter',
   'merge-pdf': 'Merge PDF',
+  'compress-pdf': 'Compress PDF',
+  'split-pdf': 'Split PDF',
   'reorder-pdf': 'Reorder PDF Pages',
   'contact': 'Contact Us',
 };
