@@ -42,6 +42,7 @@ export default function Footer() {
               <li><Link to="/tool/json-formatter">JSON Formatter</Link></li>
               <li><Link to="/tool/html-formatter">HTML Formatter</Link></li>
               <li><Link to="/tool/font-converter">Font Converter</Link></li>
+              <li><Link to="/tool/resume-builder">AI Resume Builder</Link></li>
             </ul>
           </div>
 

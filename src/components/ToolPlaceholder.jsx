@@ -24,6 +24,7 @@ const toolTitles = {
   'compress-pdf': 'Compress PDF',
   'split-pdf': 'Split PDF',
   'reorder-pdf': 'Reorder PDF Pages',
+  'resume-builder': 'AI Resume Builder',
   'contact': 'Contact Us',
 };
 

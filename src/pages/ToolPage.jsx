@@ -7,6 +7,7 @@ import PDFSplit from '../components/PDFSplit';
 import PDFCompress from '../components/PDFCompress';
 import PDFReorder from '../components/PDFReorder';
 import CSSBeautifier from '../components/CSSBeautifier';
+import ResumeBuilder from '../components/ResumeBuilder';
 
 export default function ToolPage() {
   const { toolId } = useParams();
@@ -38,6 +39,10 @@ export default function ToolPage() {
 
   if (toolId === 'css-beautify') {
     return <CSSBeautifier />;
+  }
+
+  if (toolId === 'resume-builder') {
+    return <ResumeBuilder />;
   }
 
   return <ToolPlaceholder currentPage={toolId} />;

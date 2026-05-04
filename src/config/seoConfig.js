@@ -82,6 +82,14 @@ export const seoConfig = {
     ogImage: 'https://wejusttest365.github.io/tools/css-og.png',
   },
 
+  resumeBuilder: {
+    title: 'AI Resume Builder - Create Professional Resumes Online',
+    description: 'Build stunning resumes with AI assistance. Upload your resume, choose templates, and export as PDF. Free online resume builder.',
+    keywords: 'resume builder, AI resume, professional resume, resume templates, PDF resume, online resume maker',
+    canonical: 'https://wejusttest365.github.io/tools/tool/resume-builder',
+    ogImage: 'https://wejusttest365.github.io/tools/resume-og.png',
+  },
+
   boxShadow: {
     title: 'Box Shadow Generator - Create CSS Box Shadows Online',
     description: 'Generate CSS box-shadow code visually. Create beautiful shadows for your web designs.',
@@ -232,6 +240,7 @@ export function getSEOConfig(toolId) {
     'compress-pdf': 'compressPdf',
     'split-pdf': 'splitPdf',
     'reorder-pdf': 'reorderPdf',
+    'resume-builder': 'resumeBuilder',
     'contact': 'contact',
   };
 

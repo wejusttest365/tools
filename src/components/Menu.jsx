@@ -46,6 +46,7 @@ export default function Menu() {
     'compress-pdf': '/tool/compress-pdf',
     'split-pdf': '/tool/split-pdf',
     'reorder-pdf': '/tool/reorder-pdf',
+    'resume-builder': '/tool/resume-builder',
     'contact': '/contact',
     'about': '/about',
     'privacy': '/privacy',
@@ -88,6 +89,7 @@ export default function Menu() {
         { label: 'Base64 Encoder/Decoder', page: 'base64-codec' },
         { label: 'JSON Formatter', page: 'json-formatter' },
         { label: 'Web Font Converter', page: 'font-converter' },
+        { label: 'AI Resume Builder', page: 'resume-builder' },
       ],
     },
     {

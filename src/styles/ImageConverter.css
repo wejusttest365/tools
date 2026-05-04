@@ -1,4 +1,4 @@
-/* ======================== FULL PAGE DRAG OVERLAY ======================== */
+﻿/* ======================== FULL PAGE DRAG OVERLAY ======================== */
 .full-page-drag-overlay {
   position: fixed;
   top: 0;
@@ -1220,11 +1220,7 @@ section {
   box-shadow: 0 0 0 3px rgba(0, 87, 255, 0.1);
 }
 
-#progress-wrap {
-  margin: 16px 0;
-}
-
-/* ======================== CSS BEAUTIFIER SPLIT LAYOUT ======================== */
+/* ======================== CSS BEAUTIFIER SPLIT LAYOUT ======================== *//* ======================== CSS BEAUTIFIER SPLIT LAYOUT ======================== */
 .editor-split-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
