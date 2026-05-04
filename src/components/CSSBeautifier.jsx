@@ -48,13 +48,29 @@ const detectCSSErrors = (css) => {
       braceCount = 0;
     }
 
-    // Check for missing semicolons in declarations
+    // Check for missing semicolons in declarations (more intelligent check)
     if (trimmed.includes(':') && !trimmed.startsWith('@') && !trimmed.includes('{') && !trimmed.includes('}')) {
-      if (!trimmed.endsWith(';') && !trimmed.endsWith('{') && !trimmed.endsWith(',')) {
+      // Check if there's a semicolon anywhere in the line (before any closing brace)
+      const beforeBrace = trimmed.split('}')[0];
+      const hasSemicolon = beforeBrace.includes(';');
+      if (!hasSemicolon && !trimmed.endsWith('{') && !trimmed.endsWith(',')) {
         errors.push({
           line: lineNumber,
           column: line.length,
           message: 'Missing semicolon after property declaration',
+          type: 'warning',
+        });
+      }
+    }
+
+    // Check for missing semicolons when closing brace is on same line as property
+    if (trimmed.includes(':') && trimmed.includes('}') && !trimmed.startsWith('@')) {
+      const beforeBrace = trimmed.split('}')[0];
+      if (beforeBrace.includes(':') && !beforeBrace.includes(';')) {
+        errors.push({
+          line: lineNumber,
+          column: trimmed.indexOf('}'),
+          message: 'Missing semicolon before closing brace',
           type: 'warning',
         });
       }
@@ -70,17 +86,7 @@ const detectCSSErrors = (css) => {
       });
     }
 
-    // Check for missing opening brace after selector
-    if (trimmed.includes(':') && trimmed.includes('}') && !trimmed.includes('{')) {
-      if (!trimmed.startsWith('@') && !trimmed.includes('url') && !trimmed.includes('/*')) {
-        errors.push({
-          line: lineNumber,
-          column: 0,
-          message: 'Missing opening brace {',
-          type: 'warning',
-        });
-      }
-    }
+    // Removed problematic check for missing opening brace - handled by brace counting
   });
 
   // Check for unclosed braces at end
@@ -97,25 +103,58 @@ const detectCSSErrors = (css) => {
 };
 
 const beautifyCSS = (css) => {
-  let formatted = css
-    .replace(/\s*{\s*/g, ' {\n  ')
-    .replace(/\s*}\s*/g, '\n}\n')
-    .replace(/\s*;\s*/g, ';\n  ')
-    .replace(/\s*,\s*/g, ',\n  ')
-    .trim();
+  const lines = css.split('\n');
+  const formatted = [];
 
-  formatted = formatted
-    .split('\n')
-    .map((line, idx, arr) => {
-      const trimmed = line.trim();
-      if (trimmed === '}') return trimmed;
-      if (trimmed === '') return '';
-      return trimmed;
-    })
-    .filter((line) => line !== '')
-    .join('\n');
+  lines.forEach((line, index) => {
+    const trimmed = line.trim();
 
-  return formatted;
+    // Skip empty lines
+    if (!trimmed) return;
+
+    // Handle selectors (lines ending with {)
+    if (trimmed.endsWith('{')) {
+      formatted.push(trimmed);
+      return;
+    }
+
+    // Handle property declarations
+    if (trimmed.includes(':') && !trimmed.startsWith('@')) {
+      // Check if line has both property and closing brace
+      if (trimmed.includes('}') && trimmed.includes(';')) {
+        // Split property and closing brace
+        const parts = trimmed.split('}');
+        const propertyPart = parts[0].trim();
+        if (propertyPart && !propertyPart.endsWith(';')) {
+          // Add semicolon if missing
+          formatted.push(`  ${propertyPart};`);
+        } else {
+          formatted.push(`  ${propertyPart}`);
+        }
+        formatted.push('}');
+        return;
+      }
+
+      // Handle closing braces on separate lines
+      if (trimmed === '}') {
+        formatted.push('}');
+        return;
+      }
+
+      // Regular property declaration
+      if (!trimmed.endsWith(';') && !trimmed.endsWith(',')) {
+        formatted.push(`  ${trimmed};`);
+      } else {
+        formatted.push(`  ${trimmed}`);
+      }
+      return;
+    }
+
+    // Handle @rules and other special cases
+    formatted.push(trimmed);
+  });
+
+  return formatted.join('\n');
 };
 
 const minifyCSS = (css) => {
@@ -128,31 +167,53 @@ const minifyCSS = (css) => {
 };
 
 const fixCSSErrors = (css) => {
-  let fixed = css;
+  const lines = css.split('\n');
+  const fixed = [];
 
-  // Add missing semicolons to property declarations
-  fixed = fixed.replace(/([^{};:,\s])\n\s*([a-zA-Z-]|\})/g, '$1;\n$2');
-  fixed = fixed.replace(/([^{};:,\s])\s+([a-zA-Z-])/g, (match, before, after) => {
-    if (before === ':' || after === ':' || match.includes('{') || match.includes('}')) {
-      return match;
+  lines.forEach((line, index) => {
+    let trimmed = line.trim();
+
+    // Skip empty lines
+    if (!trimmed) {
+      fixed.push(line);
+      return;
     }
-    return `${before};\n${after}`;
+
+    // Handle lines with both property and closing brace
+    if (trimmed.includes(':') && trimmed.includes('}') && !trimmed.startsWith('@')) {
+      const beforeBrace = trimmed.split('}')[0];
+      if (beforeBrace.includes(':') && !beforeBrace.includes(';')) {
+        // Add missing semicolon before closing brace
+        trimmed = trimmed.replace('}', '; }');
+      }
+    }
+
+    // Handle regular property declarations missing semicolons
+    if (trimmed.includes(':') && !trimmed.includes('{') && !trimmed.includes('}') && !trimmed.startsWith('@')) {
+      if (!trimmed.endsWith(';') && !trimmed.endsWith(',')) {
+        trimmed += ';';
+      }
+    }
+
+    fixed.push(line.replace(line.trim(), trimmed));
   });
 
+  let result = fixed.join('\n');
+
   // Balance braces
-  const openCount = (fixed.match(/{/g) || []).length;
-  const closeCount = (fixed.match(/}/g) || []).length;
+  const openCount = (result.match(/{/g) || []).length;
+  const closeCount = (result.match(/}/g) || []).length;
   const diff = openCount - closeCount;
 
   if (diff > 0) {
-    fixed += '\n' + '}'.repeat(diff);
+    result += '\n' + '}'.repeat(diff);
   }
 
-  return fixed;
+  return result;
 };
 
 export default function CSSBeautifier() {
-  const [input, setInput] = useState('body {\n  margin: 0\n  padding: 10px\n}\n\n.container {\n  display: flex\n  gap: 20px');
+  const [input, setInput] = useState('.container {\n  display: flex;\n  gap: 20px; }');
   const [output, setOutput] = useState('');
   const [errors, setErrors] = useState([]);
   const [mode, setMode] = useState('beautify');
