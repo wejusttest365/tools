@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { pageToRoute, headerNavItems } from '../config/navigationConfig';
 import '../styles/Header.css';
 
 export default function Menu() {
@@ -22,87 +23,85 @@ export default function Menu() {
   }, []);
 
   // Map page IDs to routes
-  const pageToRoute = {
-    'converter': '/',
-    'compress': '/image-compress',
-    'ocr': '/image-ocr',
-    'svg-to-image': '/svg-to-image',
-    'image-to-svg': '/tool/image-to-svg',
-    'favicon': '/tool/favicon',
-    'base64': '/tool/image-to-base64',
-    'image-from-base64': '/tool/image-from-base64',
-    'css-beautify': '/tool/css-beautify',
-    'box-shadow': '/tool/box-shadow',
-    'multi-box-shadow': '/tool/multi-box-shadow',
-    'clip-css': '/tool/clip-css',
-    'card-builder': '/tool/card-builder',
-    'gradient-generator': '/tool/gradient-generator',
-    'html-formatter': '/tool/html-formatter',
-    'css-errors': '/tool/css-errors',
-    'base64-codec': '/tool/base64-codec',
-    'json-formatter': '/tool/json-formatter',
-    'font-converter': '/tool/font-converter',
-    'merge-pdf': '/tool/merge-pdf',
-    'compress-pdf': '/tool/compress-pdf',
-    'split-pdf': '/tool/split-pdf',
-    'reorder-pdf': '/tool/reorder-pdf',
-    'resume-builder': '/tool/resume-builder',
-    'contact': '/contact',
-    'about': '/about',
-    'privacy': '/privacy',
-  };
+  // const pageToRoute = {
+  //   'converter': '/',
+  //   'compress': '/image-compress',
+  //   'ocr': '/image-ocr',
+  //   'svg-to-image': '/svg-to-image',
+  //   'image-to-svg': '/image-to-svg',
+  //   'css-beautify': '/tool/css-beautify',
+  //   'box-shadow': '/tool/box-shadow',
+  //   'multi-box-shadow': '/tool/multi-box-shadow',
+  //   'clip-css': '/tool/clip-css',
+  //   'card-builder': '/tool/card-builder',
+  //   'gradient-generator': '/tool/gradient-generator',
+  //   'html-formatter': '/tool/html-formatter',
+  //   'css-errors': '/tool/css-errors',
+  //   'base64-codec': '/tool/base64-codec',
+  //   'json-formatter': '/tool/json-formatter',
+  //   'font-converter': '/tool/font-converter',
+  //   'merge-pdf': '/tool/merge-pdf',
+  //   'split-pdf': '/tool/split-pdf',
+  //   'reorder-pdf': '/tool/reorder-pdf',
+  //   'image-to-pdf': '/tool/image-to-pdf',
+  //   'pdf-to-image': '/tool/pdf-to-image',
+  //   'resume-builder': '/tool/resume-builder',
+  //   'contact': '/contact',
+  //   'about': '/about',
+  //   'privacy': '/privacy',
+  // };
 
-  const navItems = [
-    { id: 'home', label: 'Home', page: 'converter' },
-    {
-      id: 'image',
-      label: 'Image Tools',
-      submenu: [
-        { label: 'Image Converter', page: 'converter' },
-        { label: 'Compress Images', page: 'compress' },
-        { label: 'Image to Text (OCR)', page: 'ocr' },
-        { label: 'SVG to Image', page: 'svg-to-image' },
-        { label: 'Image to SVG', page: 'image-to-svg' },
-        { label: 'Favicon Generator', page: 'favicon' },
-        { label: 'Image to Base64', page: 'base64' },
-        { label: 'Base64 to Image', page: 'image-from-base64' },
-      ],
-    },
-    {
-      id: 'css',
-      label: 'CSS Tools',
-      submenu: [
-        { label: 'Beautify / Minify CSS', page: 'css-beautify' },
-        { label: 'Box Shadow Generator', page: 'box-shadow' },
-        { label: 'Multi Box Shadow', page: 'multi-box-shadow' },
-        { label: 'Clip Image CSS', page: 'clip-css' },
-        { label: 'CSS Card Builder', page: 'card-builder' },
-        { label: 'Gradient Generator', page: 'gradient-generator' },
-      ],
-    },
-    {
-      id: 'dev',
-      label: 'Developer Tools',
-      submenu: [
-        { label: 'HTML Formatter', page: 'html-formatter' },
-        { label: 'Check CSS Errors', page: 'css-errors' },
-        { label: 'Base64 Encoder/Decoder', page: 'base64-codec' },
-        { label: 'JSON Formatter', page: 'json-formatter' },
-        { label: 'Web Font Converter', page: 'font-converter' },
-        { label: 'AI Resume Builder', page: 'resume-builder' },
-      ],
-    },
-    {
-      id: 'pdf',
-      label: 'PDF Tools',
-      submenu: [
-        { label: 'Merge PDF', page: 'merge-pdf' },
-        { label: 'Compress PDF', page: 'compress-pdf' },
-        { label: 'Split PDF', page: 'split-pdf' },
-        { label: 'Reorder PDF Pages', page: 'reorder-pdf' },
-      ],
-    },
-  ];
+  // const navItems = [
+  //   { id: 'home', label: 'Home', page: 'converter' },
+  //   {
+  //     id: 'image',
+  //     label: 'Image Tools',
+  //     submenu: [
+  //       { label: 'Image Converter', page: 'converter' },
+  //       { label: 'Compress Images', page: 'compress' },
+  //       { label: 'Image to Text (OCR)', page: 'ocr' },
+  //       { label: 'SVG to Image', page: 'svg-to-image' },
+  //       { label: 'Image to SVG', page: 'image-to-svg' },
+  //     ],
+  //   },
+  //   {
+  //     id: 'css',
+  //     label: 'CSS Tools',
+  //     hidden: true,
+  //     submenu: [
+  //       { label: 'Beautify / Minify CSS', page: 'css-beautify' },
+  //       { label: 'Box Shadow Generator', page: 'box-shadow' },
+  //       { label: 'Multi Box Shadow', page: 'multi-box-shadow' },
+  //       { label: 'Clip Image CSS', page: 'clip-css' },
+  //       { label: 'CSS Card Builder', page: 'card-builder' },
+  //       { label: 'Gradient Generator', page: 'gradient-generator' },
+  //     ],
+  //   },
+  //   // Temporarily hidden - Developer Tools section
+  //   // {
+  //   //   id: 'dev',
+  //   //   label: 'Developer Tools',
+  //   //   submenu: [
+  //   //     { label: 'HTML Formatter', page: 'html-formatter' },
+  //   //     { label: 'Check CSS Errors', page: 'css-errors' },
+  //   //     { label: 'Base64 Encoder/Decoder', page: 'base64-codec' },
+  //     //     { label: 'JSON Formatter', page: 'json-formatter' },
+  //     //     { label: 'Web Font Converter', page: 'font-converter' },
+  //     //     { label: 'AI Resume Builder', page: 'resume-builder' },
+  //     //   ],
+  //   // },
+  //   {
+  //     id: 'pdf',
+  //     label: 'PDF Tools',
+  //     submenu: [
+  //       { label: 'Merge PDF', page: 'merge-pdf' },
+  //       { label: 'Split PDF', page: 'split-pdf' },
+  //       { label: 'Reorder PDF Pages', page: 'reorder-pdf' },
+  //       { label: 'Image to PDF', page: 'image-to-pdf' },
+  //       { label: 'PDF to Image', page: 'pdf-to-image' },
+  //     ],
+  //   },
+  // ];
 
   const toggleDropdown = (id) => {
     setOpenDropdown(openDropdown === id ? null : id);
@@ -126,7 +125,7 @@ export default function Menu() {
     <>
       <nav aria-label="Main navigation" className="desktop-nav" ref={navRef}>
         <ul className="nav-list" role="list">
-          {navItems.map((item) => (
+          {headerNavItems.filter((item) => !item.hidden).map((item) => (
             item.submenu ? (
               <li key={item.id} className={`nav-item ${openDropdown === item.id ? 'open' : ''}`}>
                 <button
@@ -197,7 +196,7 @@ export default function Menu() {
         aria-hidden={!mobileNavOpen}
       >
         <ul className="mobile-nav-list">
-          {navItems.map((item) => (
+          {headerNavItems.filter((item) => !item.hidden).map((item) => (
             <li key={item.id}>
               {item.submenu ? (
                 <>

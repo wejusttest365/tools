@@ -172,7 +172,7 @@ export default function ImageCompress() {
       'Image Converter': '/',
       'OCR Reader': '/image-ocr',
       'SVG to Image': '/svg-to-image',
-      'Image to SVG': '/tool/image-to-svg',
+      'Image to SVG': '/image-to-svg',
       'Base64 Converter': '/tool/base64-converter'
     };
     return routeMap[toolName] || '#';

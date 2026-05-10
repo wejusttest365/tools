@@ -5,7 +5,7 @@ import '../styles/ImageConverter.css';
 const toolTitles = {
   'ocr': 'Image to Text (OCR)',
   'svg-to-image': 'SVG to Image',
-  'image-to-svg': 'Image to SVG',
+  'web-font-converter': 'Web Font Converter',
   'favicon': 'Favicon Generator',
   'base64': 'Image to Base64',
   'image-from-base64': 'Base64 to Image',

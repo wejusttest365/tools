@@ -6,8 +6,7 @@ export default function RelatedImageTools() {
   const relatedTools = [
     { icon: '🗜️', name: 'Image Compressor', link: '/image-compress' },
     { icon: '🔄', name: 'Image Converter', link: '/' },
-    { icon: '🎨', name: 'SVG to Image', link: '/svg-to-image' },
-    { icon: '🎯', name: 'Favicon Generator', link: '/tool/favicon' },
+    { icon: '🔤', name: 'Web Font Converter', link: '/web-font-converter' },
   ];
 
   const handleNavigate = (link) => {

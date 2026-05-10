@@ -7,7 +7,6 @@ export default function RelatedPDFTools() {
     { icon: '📎', name: 'Merge PDF', desc: 'Combine multiple PDF files' },
     { icon: '🔄', name: 'Reorder PDF', desc: 'Rearrange PDF page order' },
     { icon: '✂️', name: 'Split PDF', desc: 'Split PDF into separate files' },
-    { icon: '🗜️', name: 'Compress PDF', desc: 'Reduce PDF file size' },
   ];
 
   const handleNavigate = (link) => {

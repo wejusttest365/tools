@@ -8,6 +8,8 @@ import PDFCompress from '../components/PDFCompress';
 import PDFReorder from '../components/PDFReorder';
 import CSSBeautifier from '../components/CSSBeautifier';
 import ResumeBuilder from '../components/ResumeBuilder';
+import ImageToPdf from '../components/ImageToPdf';
+import PdfToImage from '../components/PdfToImage';
 
 export default function ToolPage() {
   const { toolId } = useParams();
@@ -43,6 +45,14 @@ export default function ToolPage() {
 
   if (toolId === 'resume-builder') {
     return <ResumeBuilder />;
+  }
+
+  if (toolId === 'image-to-pdf') {
+    return <ImageToPdf />;
+  }
+
+  if (toolId === 'pdf-to-image') {
+    return <PdfToImage />;
   }
 
   return <ToolPlaceholder currentPage={toolId} />;

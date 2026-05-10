@@ -145,8 +145,7 @@ export default function SVGToImage() {
     const routeMap = {
       'Image Compressor': '/image-compress',
       'Image Converter': '/',
-      'Image OCR': '/image-ocr',
-      'Favicon Generator': '/favicon'
+      'Image OCR': '/image-ocr'
     };
     return routeMap[toolName] || '#';
   };

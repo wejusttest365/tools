@@ -3,5 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/tools/' : '/'
+  base: process.env.NODE_ENV === 'production' ? '/tools/' : '/',
+  server: {
+    historyApiFallback: true,
+  },
 })

@@ -87,12 +87,10 @@ export default function ImageConverter() {
 
   const imageTools = [
     { icon: '🗜️', name: 'Compress Images', desc: 'Reduce file size without losing quality' },
+    { icon: '�', name: 'Image Converter', desc: 'Convert JPG, PNG, WEBP and more' },
     { icon: '📝', name: 'Image to Text (OCR)', desc: 'Extract text from any image instantly' },
     { icon: '✏️', name: 'SVG to Image', desc: 'Convert SVG to PNG, JPG or WEBP' },
     { icon: '🎨', name: 'Image to SVG', desc: 'Vectorize raster images to scalable SVG' },
-    { icon: '⭐', name: 'Favicon Generator', desc: 'Create website favicons from any image' },
-    { icon: '🔣', name: 'Image to Base64', desc: 'Encode images as base64 data strings' },
-    { icon: '🖼️', name: 'Base64 to Image', desc: 'Decode base64 strings back to images' },
   ];
 
   const getToolRoute = (toolName) => {
@@ -101,9 +99,7 @@ export default function ImageConverter() {
       'Image to Text (OCR)': '/image-ocr',
       'SVG to Image': '/svg-to-image',
       'Image Converter': '/',
-      'Favicon Generator': '/favicon',
-      'Image to Base64': '/image-to-base64',
-      'Base64 to Image': '/base64-to-image',
+
       'Image to SVG': '/image-to-svg'
     };
     return routeMap[toolName] || '#';

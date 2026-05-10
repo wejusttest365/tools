@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { footerNavGroups } from '../config/navigationConfig';
 import '../styles/Footer.css';
 
 export default function Footer() {
@@ -19,47 +20,23 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* Image Tools */}
-          <div className="footer-col">
-            <h4>Image Tools</h4>
-            <ul>
-              <li><Link to="/">Image Converter</Link></li>
-              <li><Link to="/image-compress">Compress Images</Link></li>
-              <li><Link to="/image-ocr">Image to Text OCR</Link></li>
-              <li><Link to="/tool/favicon">Favicon Generator</Link></li>
-              <li><Link to="/tool/image-to-base64">Image to Base64</Link></li>
-              <li><Link to="/svg-to-image">SVG to Image</Link></li>
-            </ul>
-          </div>
-
-          {/* CSS & Dev Tools */}
-          <div className="footer-col">
-            <h4>CSS & Dev Tools</h4>
-            <ul>
-              <li><Link to="/tool/css-beautify">CSS Formatter</Link></li>
-              <li><Link to="/tool/gradient-generator">Gradient Generator</Link></li>
-              <li><Link to="/tool/box-shadow">Box Shadow Generator</Link></li>
-              <li><Link to="/tool/json-formatter">JSON Formatter</Link></li>
-              <li><Link to="/tool/html-formatter">HTML Formatter</Link></li>
-              <li><Link to="/tool/font-converter">Font Converter</Link></li>
-              <li><Link to="/tool/resume-builder">AI Resume Builder</Link></li>
-            </ul>
-          </div>
-
-          {/* PDF Tools & Info */}
-          <div className="footer-col">
-            <h4>PDF Tools & Info</h4>
-            <ul>
-              <li><Link to="/tool/merge-pdf">Merge PDF</Link></li>
-              <li><Link to="/tool/compress-pdf">Compress PDF</Link></li>
-              <li><Link to="/tool/split-pdf">Split PDF</Link></li>
-              <li><Link to="/tool/reorder-pdf">Reorder PDF Pages</Link></li>
-              <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/contact">Contact Us</Link></li>
-              <li><Link to="/privacy">Privacy Policy</Link></li>
-              <li><a href="#terms">Terms & Conditions</a></li>
-            </ul>
-          </div>
+          {/* Dynamic Footer Columns */}
+          {footerNavGroups.map((group) => (
+            <div key={group.title} className="footer-col">
+              <h4>{group.title}</h4>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item.label}>
+                    {item.to ? (
+                      <Link to={item.to}>{item.label}</Link>
+                    ) : (
+                      <a href={item.href}>{item.label}</a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         {/* Footer Bottom */}

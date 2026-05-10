@@ -42,12 +42,20 @@ export const seoConfig = {
     ogImage: 'https://wejusttest365.github.io/tools/svg-og.png',
   },
 
-  imageToSvg: {
-    title: 'Image to SVG Converter - Convert PNG/JPG to SVG Vector',
-    description: 'Convert raster images to vector SVG format. Trace images and create scalable vector graphics online.',
-    keywords: 'image to SVG, vector tracing, image vectorizer, raster to vector, SVG converter, autotracer',
-    canonical: 'https://wejusttest365.github.io/tools/tool/image-to-svg',
-    ogImage: 'https://wejusttest365.github.io/tools/vector-og.png',
+  webFontConverter: {
+    title: 'Web Font Converter - Convert TTF/OTF to WOFF/WOFF2 Online',
+    description: 'Convert desktop fonts (TTF, OTF) to web fonts (WOFF, WOFF2, EOT, SVG). Create complete webfont kits with CSS for websites.',
+    keywords: 'web font converter, TTF to WOFF, OTF to WOFF2, font converter, webfont generator, @font-face, font kit',
+    canonical: 'https://wejusttest365.github.io/tools/web-font-converter',
+    ogImage: 'https://wejusttest365.github.io/tools/font-og.png',
+  },
+
+  aiThumbnails: {
+    title: 'AI Thumbnail Maker - Create YouTube Thumbnails Online',
+    description: 'Design AI-powered YouTube thumbnails fast with title templates, style presets, and live preview.',
+    keywords: 'AI thumbnails, youtube thumbnail maker, ai thumbnail generator, create youtube thumbnails, thumbnail design, video thumbnail',
+    canonical: 'https://wejusttest365.github.io/tools/youtube-tools/ai-thumbnails',
+    ogImage: 'https://wejusttest365.github.io/tools/ai-thumbnail-og.png',
   },
 
   favicon: {
@@ -202,6 +210,22 @@ export const seoConfig = {
     ogImage: 'https://wejusttest365.github.io/tools/reorder-og.png',
   },
 
+  imageToPdf: {
+    title: 'Image to PDF Converter - Convert Images to PDF Online',
+    description: 'Convert JPG, PNG, WebP and other images to PDF format. Create PDF documents from multiple images. Free online converter.',
+    keywords: 'image to PDF, convert image to PDF, JPG to PDF, PNG to PDF, image converter, PDF creator',
+    canonical: 'https://wejusttest365.github.io/tools/tool/image-to-pdf',
+    ogImage: 'https://wejusttest365.github.io/tools/image-to-pdf-og.png',
+  },
+
+  pdfToImage: {
+    title: 'PDF to Image Converter - Convert PDF Pages to Images',
+    description: 'Convert PDF pages to PNG, JPG, or WebP images. Extract images from PDF documents. Free online PDF converter.',
+    keywords: 'PDF to image, convert PDF to image, PDF to PNG, PDF to JPG, PDF converter, extract images from PDF',
+    canonical: 'https://wejusttest365.github.io/tools/tool/pdf-to-image',
+    ogImage: 'https://wejusttest365.github.io/tools/pdf-to-image-og.png',
+  },
+
   contact: {
     title: 'Contact Us - WebTool Ocean Support',
     description: 'Get in touch with WebTool Ocean team. Send us your feedback, suggestions, or report issues.',
@@ -221,7 +245,7 @@ export function getSEOConfig(toolId) {
     'compress': 'imageCompress',
     'ocr': 'imageOCR',
     'svg-to-image': 'svgToImage',
-    'image-to-svg': 'imageToSvg',
+    'web-font-converter': 'webFontConverter',
     'favicon': 'favicon',
     'base64': 'imageBase64',
     'image-from-base64': 'base64ToImage',
@@ -240,6 +264,8 @@ export function getSEOConfig(toolId) {
     'compress-pdf': 'compressPdf',
     'split-pdf': 'splitPdf',
     'reorder-pdf': 'reorderPdf',
+    'image-to-pdf': 'imageToPdf',
+    'pdf-to-image': 'pdfToImage',
     'resume-builder': 'resumeBuilder',
     'contact': 'contact',
   };
